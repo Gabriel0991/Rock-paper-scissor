@@ -11,8 +11,8 @@ const getPlayerChoice = myChoice => {
 
 // Player choice here
 // //////////////////////////////////////////
-const playerChoice = getPlayerChoice(`rock`)
-console.log(playerChoice)
+const playerChoice = getPlayerChoice(`paper`)
+// console.log(playerChoice)
 ///////////////////////////////////////////////
 
 // Computer returns a random result
@@ -24,13 +24,14 @@ const getComputerChoice = () => {
   return result
 }
 const cpuChoice = getComputerChoice()
-console.log(cpuChoice)
+// console.log(cpuChoice)
 
 // Play single round and declare winner
 
 const playRound = (p1, cpu) => {
+  console.log(`You (${p1}) vs Computer (${cpu})`)
   if (p1 === cpu) {
-    console.log(`it's a tie`)
+    console.log(`it's a tie `)
     const tieResult = `tie`
     return tieResult
   } else if (
@@ -51,4 +52,4 @@ const playRound = (p1, cpu) => {
 const roundWinner = playRound(playerChoice, cpuChoice)
 console.log(roundWinner)
 
-//
+// Play 5 rounds , keep score and decide the winner)
