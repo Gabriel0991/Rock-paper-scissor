@@ -1,55 +1,69 @@
-//  Player choice case insensitive
+/////////////////////////////////
 
-const getPlayerChoice = myChoice => {
+//  Player and cpu score
+let playerScore = 0
+let cpuScore = 0
+/////////////////////////////////
+
+// Player choice case insensitive
+function getPlayerChoice(myChoice) {
   const choice = myChoice.toLowerCase()
-  if (choice === `rock` || choice === `paper` || choice === `scissor`) {
-    return choice
-  } else {
-    console.log(`Choose rock,paper or scissor`)
-  }
+  return choice
+}
+// let playerChoice = getPlayerChoice()
+//////////////////////////////////
+
+//  Prompt player choice
+
+function promptFunc() {
+  const choice = prompt(`Choose rock, paper or scissor`)
+  return choice.toLocaleLowerCase()
 }
 
-// Player choice here
-// //////////////////////////////////////////
-const playerChoice = getPlayerChoice(`paper`)
-// console.log(playerChoice)
-///////////////////////////////////////////////
-
-// Computer returns a random result
-
-const getComputerChoice = () => {
+/////////////////////////////////
+//  Random computer choice
+function getComputerChoice() {
   let rps = [`rock`, `paper`, `scissor`]
   let randomNumber = Math.floor(Math.random() * rps.length)
   let result = rps[randomNumber]
   return result
 }
-const cpuChoice = getComputerChoice()
-// console.log(cpuChoice)
+///////////////////////////////////
 
-// Play single round and declare winner
-
-const playRound = (p1, cpu) => {
-  console.log(`You (${p1}) vs Computer (${cpu})`)
+// Play one round
+function playRound() {
+  const p1 = promptFunc()
+  const cpu = getComputerChoice()
   if (p1 === cpu) {
-    console.log(`it's a tie `)
-    const tieResult = `tie`
-    return tieResult
+    console.log(`It's a tie You choose ${p1} vs Cpu ${cpu}`)
   } else if (
     (p1 === `rock` && cpu === `scissor`) ||
     (p1 === `paper` && cpu === `rock`) ||
     (p1 === `scissor` && cpu === `paper`)
   ) {
-    console.log(`You win (${p1} beats ${cpu})`)
-    const winResult = `win`
-    return winResult
+    console.log(`You Win You choose ${p1} vs Cpu ${cpu}`)
+    playerScore++
   } else {
-    console.log(`Computer wins (${cpu} beats ${p1})`)
-    const winCpu = `lose`
-    return winCpu
+    console.log(`Computer Wins You choose ${p1} vs Cpu ${cpu}`)
+    cpuScore++
   }
 }
+/////////////////////////////////////
 
-const roundWinner = playRound(playerChoice, cpuChoice)
-console.log(roundWinner)
+// Play games until 5
 
-// Play 5 rounds , keep score and decide the winner)
+function test() {
+  if (playerScore < 5 && cpuScore < 5) {
+    playRound()
+    console.log(playerScore, cpuScore)
+    test()
+  } else if (playerScore === 5) {
+    console.log(`You win the game`)
+    console.log(playerScore, cpuScore)
+  } else if (cpuScore === 5) {
+    console.log(`Computer wins the game`)
+    console.log(playerScore, cpuScore)
+  }
+}
+test()
+//////////////////////////////////////////
