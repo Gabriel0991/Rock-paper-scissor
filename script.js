@@ -5,14 +5,6 @@ let playerScore = 0
 let cpuScore = 0
 /////////////////////////////////
 
-// Player choice case insensitive
-function getPlayerChoice(myChoice) {
-  const choice = myChoice.toLowerCase()
-  return choice
-}
-// let playerChoice = getPlayerChoice()
-//////////////////////////////////
-
 //  Prompt player choice
 
 function promptFunc() {
