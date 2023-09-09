@@ -1,61 +1,68 @@
-/////////////////////////////////
-
-//  Player and cpu score
 let playerScore = 0
-let cpuScore = 0
-/////////////////////////////////
+let computerScore = 0
 
-//  Prompt player choice
-
-function promptFunc() {
-  const choice = prompt(`Choose rock, paper or scissor`)
-  return choice.toLocaleLowerCase()
+const getPlayerChoice = () => {
+  const wrongChoice = `error`
+  const playerChoice = prompt(
+    `Choose rock, paper or scissor`
+  ).toLocaleLowerCase()
+  if (
+    playerChoice === `rock` ||
+    playerChoice === `paper` ||
+    playerChoice === `scissor`
+  ) {
+    return playerChoice
+  } else if (
+    playerChoice != `rock` ||
+    playerChoice != `paper` ||
+    playerChoice != `scissor`
+  ) {
+    console.log(`Please choose rock, paper , or scissor`)
+    return wrongChoice
+  }
 }
 
-/////////////////////////////////
-//  Random computer choice
-function getComputerChoice() {
-  let rps = [`rock`, `paper`, `scissor`]
-  let randomNumber = Math.floor(Math.random() * rps.length)
-  let result = rps[randomNumber]
+const getComputerChoice = () => {
+  const rps = [`rock`, `paper`, `scissor`]
+  const numberGenerator = Math.floor(Math.random() * rps.length)
+  const result = rps[numberGenerator]
   return result
 }
-///////////////////////////////////
 
-// Play one round
-function playRound() {
-  const p1 = promptFunc()
-  const cpu = getComputerChoice()
-  if (p1 === cpu) {
-    console.log(`It's a tie You choose ${p1} vs Cpu ${cpu}`)
+const getRoundWInner = () => {
+  const playerChoice = getPlayerChoice()
+  const computerChoice = getComputerChoice()
+  if (playerChoice === `error`) {
+    console.log(`Try again`)
+  } else if (playerChoice === computerChoice) {
+    console.log(`It's a tie`)
+    console.log(`Player (${playerChoice}) vs Computer (${computerChoice})`)
   } else if (
-    (p1 === `rock` && cpu === `scissor`) ||
-    (p1 === `paper` && cpu === `rock`) ||
-    (p1 === `scissor` && cpu === `paper`)
+    (playerChoice === `rock` && computerChoice === `scissor`) ||
+    (playerChoice === `paper` && computerChoice === `rock`) ||
+    (playerChoice === `scissor` && computerChoice === `paper`)
   ) {
-    console.log(`You Win You choose ${p1} vs Cpu ${cpu}`)
+    console.log(`You Win`)
+    console.log(`Player (${playerChoice}) vs Computer (${computerChoice})`)
     playerScore++
   } else {
-    console.log(`Computer Wins You choose ${p1} vs Cpu ${cpu}`)
-    cpuScore++
+    console.log(`Computer wins`)
+    console.log(`Player (${playerChoice}) vs Computer (${computerChoice})`)
+    computerScore++
   }
 }
-/////////////////////////////////////
 
-// Play games until 5
-
-function test() {
-  if (playerScore < 5 && cpuScore < 5) {
-    playRound()
-    console.log(playerScore, cpuScore)
-    test()
+const getGameWInner = () => {
+  if (playerScore < 5 && computerScore < 5) {
+    getRoundWInner()
+    console.log(`Player(${playerScore}) Computer(${computerScore})`)
+    getGameWInner()
   } else if (playerScore === 5) {
     console.log(`You win the game`)
-    console.log(playerScore, cpuScore)
-  } else if (cpuScore === 5) {
+    console.log(`Player(${playerScore}) Computer(${computerScore})`)
+  } else if (computerScore === 5) {
     console.log(`Computer wins the game`)
-    console.log(playerScore, cpuScore)
+    console.log(`Player(${playerScore}) Computer(${computerScore})`)
   }
 }
-test()
-//////////////////////////////////////////
+getGameWInner()
